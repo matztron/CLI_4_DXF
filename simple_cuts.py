@@ -39,8 +39,9 @@ def greetUser():
     print("-----------------------------")
 
 def plotWork(factor, unit):
-    print("one * represents " + str(factor) + " " + unit)
+    #print("one * represents " + str(factor) + " " + unit)
     #here is where the plotting happens
+    pass
 
 def saveWork(name):
     # Save DXF document.
