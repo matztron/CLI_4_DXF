@@ -1,0 +1,3 @@
+* support for float values
+* support for other unit-systems
+* plotting in commandline for immediate user-feedback
