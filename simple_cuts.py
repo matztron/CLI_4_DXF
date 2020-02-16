@@ -9,9 +9,11 @@ doc.header['$AUNITS'] = 0 #  0 = Decimal degrees (for angles)
 doc.header['$INSUNITS'] = 4 # 4 = Millimeters
 
 msp = doc.modelspace()  # add new entities to the modelspace
-msp.add_line((0, 0), (10, 0))  # add a LINE entity
+#msp.add_line((0, 0), (10, 0))  # add a LINE entity
 
 defaultSavename = "unnamed"
+
+defaultFileName = "instructions.txt"
 
 def greetUser():
     print("-----------------------------")
@@ -50,14 +52,28 @@ def saveWork(name):
 def drawLine(x1,y1, x2,y2):
     msp.add_line((x1, y1), (x2, y2))  # add a LINE entity
 
+readFromFile = False
+fileIndex = 0
+global f
+cmds = []
 cmd = ""
+
 while cmd != "EXIT":
+    
     #get next command
-    cmd = input("€:")
+    if readFromFile == True:
+        print(cmds[fileIndex])
+        cmd = cmds[fileIndex]
+        fileIndex += 1
+    else:
+        cmd = input("€:")
+
 
     #get first word in string
     words = cmd.split(' ')
     if words[0] == "EXIT":
+        if readFromFile == True:
+             f.close()
         print("bye!")
 
     elif words[0] == "SAVE":  
@@ -69,6 +85,17 @@ while cmd != "EXIT":
 
     elif words[0] == "HELP":
         greetUser()
+
+    elif words[0] == "FILEMODE":
+        #read instrctions from file now
+        if len(words)  == 2:
+            if words[1] is not None:
+                defaultFileName = words[1]
+        
+        readFromFile = True
+        f = open(defaultFileName, "r")
+        cmds = f.readlines()
+        #print(f.read())
 
     elif words[0] == "LINE":  
         if len(words) == 5:
